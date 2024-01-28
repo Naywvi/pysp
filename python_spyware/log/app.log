@@ -1,0 +1,4 @@
+2024-01-27 14:04:48,261 - __main__ - ERROR - This is an error message
+2024-01-27 14:04:48,262 - __main__ - CRITICAL - This is a critical message
+2024-01-27 14:06:59,000 - __main__ - ERROR - This is an error message
+2024-01-27 14:06:59,000 - __main__ - CRITICAL - This is a critical message

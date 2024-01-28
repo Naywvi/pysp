@@ -23,14 +23,17 @@ class Env:
     async def ainit(self):
         """initialisator .env file"""
         
+        self.url = "https://api.ipify.org"
         self.ip = None
         self.key = None
-        self.port = 9000
-        
+        self.port_send = 9000
+        self.port_receive = None
         try:
             self.ip = await self.take_ip()
             self.key = await generate_key()
-            await self.take_port()
+            self.port_send = await self.take_port(self.port_send)
+            self.port_receive = self.port_send + 1
+            self.port_receive = await self.take_port(self.port_receive)
             await self.create_env()
             return True
         except Exception as err:
@@ -43,18 +46,19 @@ class Env:
         
         try:
             load_dotenv()
-            self.url = os.getenv("URL")
             response = requests.get(self.url)
             if response.status_code == 200: return response.text
             else: return " url '{}'".format(self.url)
         except Exception as err: return err
     
-    async def take_port(self):
+    async def take_port(self,port):
         """take port function"""
         
-        while not await self.search_port(self.port):
-            if self.port > 65535: raise "No available ports"
-            self.port += 15
+        while not await self.search_port(port):
+            if port > 65535: raise "No available ports"
+            port += 1
+        
+        return port
         
     async def search_port(self, port, host='127.0.0.1'):
         """take port"""
@@ -70,6 +74,7 @@ class Env:
         
         try:
             update_env_file('.env', 'KEY', self.key)
-            update_env_file('.env', 'PORT', self.port)
+            update_env_file('.env', 'PORT_SEND', self.port_send)
+            update_env_file('.env', 'PORT_RECEIVE', self.port_receive)
             update_env_file('.env', 'IP', self.ip)
         except Exception : raise "while creating .env file." 

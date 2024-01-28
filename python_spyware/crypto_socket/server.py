@@ -10,16 +10,26 @@ def start_server(port, key):
         s.listen()
         print(f"Server listening on port {port}...")
 
-        conn, addr = s.accept()
-        with conn:
-            print(f"Connected by {addr}")
-            while True:
-                encrypted_data = conn.recv(1024)
-                if not encrypted_data:
-                    break
+        while True:
+            conn, addr = s.accept()
+            with conn:
+                print(f"Connected by {addr}")
+                while True:
+                    encrypted_data = conn.recv(1024)
+                    if not encrypted_data:
+                        break
 
-                data = decrypt_message(encrypted_data, key)
-                print(f"Received: {data}")
+                    data = decrypt_message(encrypted_data, key)
+                    print(f"Received: {data}")
+
+                    # Répondre au client avec "Message received"
+                    conn.sendall(b"Message received")
+
+                    # Vérifier si la commande d'arrêt est reçue
+                    if data == "QUIT":
+                        print("Client disconnected.")
+                        return
+
 def is_valid_fernet_key(key):
     try:
         # La clé doit être décodable en base64 et avoir une longueur de 32 octets
@@ -40,4 +50,3 @@ if __name__ == "__main__":
     else:
         print("La clé Fernet n'est pas valide.")
         print(KEY)
-    

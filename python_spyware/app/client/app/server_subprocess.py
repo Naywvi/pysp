@@ -6,9 +6,9 @@ class Server_subprocess:
     """Server class for client app (receive data)"""
     async def ainit(self):
         try:
-            self.config = await take_config(server=True)
-            self.key = self.config['key'].encode()
-            self.port_receive = int(self.config['port'])
+            self.config = await load_env()
+            self.key = self.config['KEY'].encode()
+            self.port_receive = int(self.config['PORT_RECEIVE'])
             await self.start()
         except Exception as err:
             print(err)

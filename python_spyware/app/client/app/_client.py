@@ -9,6 +9,8 @@ class Client:
        
         try:
             self.config = config
+            if config == None: self.config = await load_env()
+            print(self.config)
             self.port_send = int(self.config['PORT_SEND'])
             self.key = self.config['KEY'].encode() # Encode the key in bytes
          

@@ -13,7 +13,7 @@ async def main(url):
         if not await generate_client.ainit(): return main() #if error, restart the main function
         
         while True:
-            await generate_client.send(message="QUIT")
+            await generate_client.send(message="HELLO WORLD")
             await asyncio.sleep(1)
             
       

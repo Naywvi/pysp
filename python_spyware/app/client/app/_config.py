@@ -1,4 +1,4 @@
-from app.module_crypto import is_valid_fernet_key
+from app.functions import is_valid_fernet_key, load_env
 from dotenv import load_dotenv
 import os
 
@@ -8,38 +8,26 @@ class Config:
     async def ainit(self):
         """You need to init .env file before using this class"""
         
-        self.key = None
-        self.port_send = None
-        self.port_receive = None
-        self.ip = None
-        
         try:
-            await self.load_env()
+            config = await load_env()
+        
+            self.key = config["KEY"]
+            self.port_send = config["PORT_SEND"]
+            self.port_receive = config["PORT_RECEIVE"]
+            self.ip = config["IP"]
+            
             await self.check_key()
             await self.check_port(self.port_send)
             await self.check_port(self.port_receive)
             await self.check_ip()
             config = {
-                "key": self.key,
-                "port_send": int(self.port_send),
-                "port_receive": int(self.port_receive),
-                "ip": self.ip
+                "KEY": self.key,
+                "PORT_SEND": int(self.port_send),
+                "PORT_RECEIVE": int(self.port_receive),
+                "IP": self.ip
             }
             return config
-        except Exception as err:
-            print(err)
-            return False
-
-    async def load_env(self):
-        """load env file"""
-        
-        try:
-            load_dotenv()
-            self.key =  os.getenv("KEY")
-            self.port_send = os.getenv("PORT_SEND")
-            self.port_receive = os.getenv("PORT_RECEIVE")
-            self.ip = os.getenv("IP")
-        except Exception: raise await Exception("[x] - Error while loading .env file.")
+        except Exception as err: return "[x] - Error config ", err
            
     async def check_key(self):
         """check if key is valid"""

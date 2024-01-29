@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from app.module_crypto import generate_key
-import requests, os, socket
+import requests, socket, datetime
 
 def update_env_file(file_path, key, value):
     """Update or add a key-value in a .env file."""
@@ -28,6 +28,7 @@ class Env:
         self.key = None
         self.port_send = 9000
         self.port_receive = None
+        self.date = datetime.datetime.now()
         try:
             self.ip = await self.take_ip()
             self.key = await generate_key()
@@ -36,10 +37,7 @@ class Env:
             self.port_receive = await self.take_port(self.port_receive)
             await self.create_env()
             return True
-        except Exception as err:
-            print("[x] - Error ", err)
-            return False
-        
+        except Exception as err: return "[x] - Error client ", err
     
     async def take_ip(self):
         """take public ip"""
@@ -77,4 +75,5 @@ class Env:
             update_env_file('.env', 'PORT_SEND', self.port_send)
             update_env_file('.env', 'PORT_RECEIVE', self.port_receive)
             update_env_file('.env', 'IP', self.ip)
+            update_env_file('.env', 'DATE', self.date)
         except Exception : raise "while creating .env file." 

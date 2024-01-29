@@ -1,8 +1,6 @@
-import socket
 from my_cryptography_module import decrypt_message  # Assurez-vous que ce module contient vos fonctions de cryptographie
-import os
 from dotenv import load_dotenv
-import base64
+import socket, os, base64
 
 def start_server(port, key):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

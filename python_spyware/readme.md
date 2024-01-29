@@ -1,15 +1,15 @@
 - Linux / Windows
 - .Exe sous windows
---features (client):
----keylogger
----send files socket & sécurisé
----stop 10min si serveur est eteint
+  --features (client):
+  ---keylogger
+  ---send files socket & sécurisé
+  ---stop 10min si serveur est eteint
 
 --features (server):
 ---Receive request tcp
 ---Ecoute sur un port différente de celle de la victime
 ---save unique <ip-victime>-
-<date/heure>-keyboard.txt
+--keyboard.txt
 ---Enregistrer les signaux envoyé au serveur(>socket) (ex: ctrl+c) pour savoir son état
 --- '--help'
 --- '--listen port' changer de port

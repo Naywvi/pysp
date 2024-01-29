@@ -1,8 +1,4 @@
-from app._init_client import Env as env
-from app._config import Config as client_config
 from app._client import Client as client
-from app._server import Server as server
-from app.functions import send_api
 import asyncio
 
 async def main(url):

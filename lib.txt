@@ -1,3 +1,4 @@
 dotenv
 pynput
 wheel
+requests

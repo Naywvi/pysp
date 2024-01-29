@@ -16,7 +16,7 @@ def update_env_file(file_path, key, value):
     if not found: lines.append(f'{key}={value}\n')
 
     with open(file_path, 'w') as file: file.writelines(lines)
-        
+
 class Env:
     """Starts the application"""
     
@@ -29,6 +29,7 @@ class Env:
         self.port_send = 9000
         self.port_receive = None
         self.date = datetime.datetime.now()
+        self.name = socket.gethostname()
         try:
             self.ip = await self.take_ip()
             self.key = await generate_key()
@@ -76,4 +77,5 @@ class Env:
             update_env_file('.env', 'PORT_RECEIVE', self.port_receive)
             update_env_file('.env', 'IP', self.ip)
             update_env_file('.env', 'DATE', self.date)
+            update_env_file('.env', 'NAME', self.name)
         except Exception : raise "while creating .env file." 

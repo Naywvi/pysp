@@ -2,22 +2,25 @@ from app._init_client import Env as env
 from app._config import Config as client_config
 from app._client import Client as client
 from app._server import Server as server
-from app.functions import send_api, redirect_output,check_env, load_env
+from app.functions import send_api, redirect_output,check_env, load_env, check_log
 import asyncio, threading, multiprocessing, queue, subprocess
 import queue
 import sys #close terminal 
 
 threads_done = threading.Event()
-
+URL = "http://localhost:8000/api/"
 
 
     
-async def main(url):
+async def main():
     """main function"""
-    
+
     try:
         if threads_done.is_set(): return # If the thread is already running, do nothing
         elif not threads_done.is_set(): threads_done.set() # Set the thread as running
+        
+        #check if log file exist
+        if not await check_log(): return await main() #if error, restart the main function
         
         #if .env file is not valid, we create it
         if not await check_env():
@@ -56,7 +59,7 @@ async def main(url):
         ## /!\ Start subprocess server /!\ ###
         
         #when all is good, we can send data to api ---------------------------------DONT LOST THAT NAGIB :D -----------------------------
-        # await send_api(url, generated_config)
+        # await send_api(URL, generated_config)
         
         #starting the client with the configuration
         generate_client = client()
@@ -80,7 +83,7 @@ async def main(url):
         
 if __name__ == "__main__":
     multiprocessing.set_start_method('spawn')
-    asyncio.run(main("http://localhost:8000/api/"))
+    asyncio.run(main())
     threads_done.clear()
     sys.exit() #close terminal if exist
     

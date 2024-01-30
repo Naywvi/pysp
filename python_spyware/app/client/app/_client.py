@@ -27,4 +27,4 @@ class Client:
             encrypted_data = await encrypt_message(message, self.key)
             client_sock.sendall(encrypted_data)
             response = client_sock.recv(1024)
-            print("Received: {}".format(response.decode()))
+            print("[ Received response from server ] : {}".format(response.decode()))

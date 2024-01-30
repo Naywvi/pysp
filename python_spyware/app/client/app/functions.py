@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from datetime import datetime
-import base64, os, requests, platform, ctypes
+import base64, os, requests, platform, ctypes, subprocess
 
 async def detect_os():
     os_name = platform.system()
@@ -92,3 +92,13 @@ async def load_env():
         }
         return config
     except Exception: return await Exception("[x] - Error while loading .env file.")
+    
+def run_server_sub():
+    server = subprocess.Popen(
+        ["python", "-u", "./app/server_subprocess.py"],
+        stdout=subprocess.PIPE,  # Capture output
+        bufsize=1, # Line-buffered
+        universal_newlines=True, # Translate to UTF-8
+        shell=False # No shell injection risk
+    )
+    return server

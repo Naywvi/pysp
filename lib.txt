@@ -2,3 +2,4 @@ dotenv
 pynput
 wheel
 requests
+psutil --->> Si process is down => reset

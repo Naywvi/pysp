@@ -9,7 +9,8 @@ async def main(url):
         if not await generate_client.ainit(): return main() #if error, restart the main function
         
         while True:
-            await generate_client.send(message="HELLO WORLD")
+            # input_t = input("Press enter to send a message")
+            await generate_client.send(message=input("Press enter to send a message\n"))
             await asyncio.sleep(1)
             
       
@@ -18,3 +19,6 @@ async def main(url):
         
 if __name__ == "__main__":
     asyncio.run(main("http://localhost:8000/api/"))
+    
+    
+#ne pas oublier de changer dans send le port de send et de receive car ici on est en local

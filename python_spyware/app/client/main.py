@@ -23,6 +23,7 @@ async def main():
         if not await check_log(): return await main() #if error, restart the main function
         
         #if .env file is not valid, we create it
+        
         if not await check_env():
             # creating a suitable configuration
             generate_env = env()
@@ -64,18 +65,21 @@ async def main():
         #starting the client with the configuration
         generate_client = client()
         if not await generate_client.ainit(generate_config): return main() #if error, restart the main function
-
+        
+        
         while True:
+            if subprocess.Popen.poll(server_process) != None:# If is disabled
+                pass# subprocess.Popen.kill(server_process)
+            elif subprocess.Popen.poll(server_process) == None:# If is enabled
+                if not server_output_queue.empty(): # Check if the server has sent any output
+                    line = server_output_queue.get()
+                    print(line)  # Afficher la ligne de sortie du serveur
+    
+                
+               
             
-            # Check if the server is still running
-            if subprocess.Popen.poll(server_process) == 0:
-                subprocess.Popen.kill(server_process)
-                return
-            
-            # Check if the server has sent any output
-            if not server_output_queue.empty():
-                line = server_output_queue.get()
-                print(line)  # Afficher la ligne de sortie du serveur
+           
+           
                 
         
     except Exception as err: print(err)

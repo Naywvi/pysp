@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from app.module_crypto import generate_key
-import requests, socket, datetime
+from datetime import datetime
+import requests, socket
 
 def update_env_file(file_path, key, value):
     """Update or add a key-value in a .env file."""
@@ -26,9 +27,9 @@ class Env:
         self.url = "https://api.ipify.org"
         self.ip = None
         self.key = None
-        self.port_send = 9000
+        self.port_send = 10000
         self.port_receive = None
-        self.date = datetime.datetime.now()
+        self.date = datetime.now().strftime("%d-%m-%Y")
         self.name = socket.gethostname()
         try:
             self.ip = await self.take_ip()
@@ -54,7 +55,7 @@ class Env:
         """take port function"""
         
         while not await self.search_port(port):
-            if port > 65535: raise "No available ports"
+            if port > 65535: return "No available ports"
             port += 1
         
         return port
@@ -78,4 +79,4 @@ class Env:
             update_env_file('.env', 'IP', self.ip)
             update_env_file('.env', 'DATE', self.date)
             update_env_file('.env', 'NAME', self.name)
-        except Exception : raise "while creating .env file." 
+        except Exception : return "while creating .env file." 

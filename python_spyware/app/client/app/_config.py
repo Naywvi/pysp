@@ -15,6 +15,8 @@ class Config:
             self.port_send = config["PORT_SEND"]
             self.port_receive = config["PORT_RECEIVE"]
             self.ip = config["IP"]
+            self.date = config["DATE"]
+            self.name = config["NAME"]
             
             await self.check_key()
             await self.check_port(self.port_send)
@@ -24,7 +26,9 @@ class Config:
                 "KEY": self.key,
                 "PORT_SEND": int(self.port_send),
                 "PORT_RECEIVE": int(self.port_receive),
-                "IP": self.ip
+                "IP": self.ip,
+                "DATE": self.date,
+                "NAME": self.name
             }
             return config
         except Exception as err: return "[x] - Error config ", err

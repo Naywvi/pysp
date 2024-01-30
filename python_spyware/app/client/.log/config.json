@@ -1,0 +1,17 @@
+{
+    "CAPTURE_KEYBOARD": {
+        "TIME": 12,
+        "STATE": true,
+        "LOG": true
+    },
+    "CAPTURE_MOUSE": {
+        "TIME": 12,
+        "STATE": false,
+        "LOG": true
+    },
+    "CAPTURE_PICTURE": {
+        "TIME": 12,
+        "STATE": false,
+        "LOG": true
+    }
+}

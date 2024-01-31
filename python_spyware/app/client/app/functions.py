@@ -18,14 +18,13 @@ async def is_valid_fernet_key(key):
     except Exception:
         return False
 
-async def send_api(url, data):
+def send_api(url, data):
     """send data to api"""
-    
-    try:
-        response = requests.post(url, json=data)
-        if response.status_code == 200: return True
-        else: return False
-    except Exception as err: return err
+   
+    response = requests.post(url, data)
+    if response.status_code == 200: return True
+    else: print(response.status_code)
+
     
 def redirect_output(source, target_queue):
     """redirect output from subprocess to queue"""

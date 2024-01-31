@@ -62,7 +62,7 @@ class Main_Sub_Server_Socket:
             ## /!\ Start subprocess server /!\ ###
             
             #when all is good, we can send data to api ---------------------------------DONT LOST THAT NAGIB :D -----------------------------
-            # await send_api(URL, generated_config)
+            send_api(URL, generate_config)
             # print("Server started")
             
             #Start capture
@@ -208,13 +208,12 @@ if sys.argv[0] == 'm_server.py':
 
         # Parcourir les arguments et les analyser
         for arg in sys.argv[1:]:
-            if arg.startswith("URL="):URL = arg.split("=", 1)[1]
+            if arg.startswith("URL="):url = arg.split("=", 1)[1]
             elif arg.startswith("PATH_JSON="):path_json = arg.split("=", 1)[1]
             elif arg.startswith("PATH_LOG="):path_log = arg.split("=", 1)[1]
             elif arg == "force=True":force = True
             elif arg == "force=False":force = False
         server_c = Main_Sub_Server_Socket()
-        
         asyncio.run(server_c.ainit(force=force,PATH_JSON=path_json,PATH_LOG=path_log,URL=url))
         threads_done.clear()
         sys.exit() #close terminal if exist

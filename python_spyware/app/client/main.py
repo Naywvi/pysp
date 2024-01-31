@@ -6,7 +6,7 @@ import asyncio, subprocess, time, queue,threading
 
 
 
-URL = "http://localhost:8000/api/"
+URL = 'http://localhost:3000/give_me_your_data/'
 PATH_JSON = "./.log/config.json"
 PATH_LOG = "./.log/"
 threads_done = threading.Event()

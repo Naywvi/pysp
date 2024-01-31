@@ -25,7 +25,9 @@ class C_Mouse:
                         with mouse.Listener(
                                 on_move=self.on_move,
                                 on_click=self.on_click,
-                                on_scroll=self.on_scroll) as listener:
+                                on_scroll=self.on_scroll
+                                ) as listener:
+                            
                             listener.join()
                         time.sleep(self.config['CAPTURE_MOUSE']['TIME'])    
                 else:return False
@@ -54,9 +56,9 @@ class C_Mouse:
         with open("{}.mouse/log_{}.log".format(self.path_log, self.format_date), "a") as file:
             file.write('Pointer moved to {}\n'.format((x, y)))
 
-    def on_scroll(self, x, y, dy):
+    def on_scroll(self, x, y, dy, dx):
         """ Capture mouse scroll """
-        
+      
         with open("{}.mouse/log_{}.log".format(self.path_log, self.format_date), "a") as file:
             file.write('Scrolled {} at {}\n'.format('down' if dy < 0 else 'up', (x, y)))
 

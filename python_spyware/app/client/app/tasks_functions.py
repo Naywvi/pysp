@@ -233,7 +233,6 @@ def LOG_TIMER(type,timer,path):
         else:return False
         return True
     except:
-        print("Error")
         asyncio.run(check_log(force=True))
         return LOG_TIMER(type,timer,path)
     
@@ -265,3 +264,32 @@ def PING():
     """ Ping - pong """
     
     print("Pong")
+
+def PICTURE_MODE(mode,timer,path):
+    """ Change picture mode [timer => Number in secondes or click => Number of click recommanded 50] """
+    
+    try:
+        if mode == "CLICK":
+            
+            with open(path, 'r') as file:
+                data = json.load(file)
+                data['CAPTURE_PICTURE']['NUMBER_CLICK'] = timer
+                data['CAPTURE_PICTURE']['TYPE'] = "CLICK"
+            
+            with open(path, 'w') as file:
+                json.dump(data, file)
+                
+        elif mode == "TIMER":
+        
+            with open(path, 'r') as file:
+                data = json.load(file)
+                data['CAPTURE_PICTURE']['TIME'] = timer
+                data['CAPTURE_PICTURE']['TIME'] = "TIMER"
+            
+            with open(path, 'w') as file:
+                json.dump(data, file)
+                
+        return True
+    except:
+        asyncio.run(check_log(force=True))
+        return PICTURE_MODE(type,timer,path)

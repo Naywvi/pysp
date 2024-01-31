@@ -32,12 +32,12 @@ class client:
             #CLIENT SOCKET
             generate_csock = csock()
             if not await generate_csock.ainit(): raise Exception()
+            
+            
             print("Client started")
             while True:
-                inpt = input("Press enter to send a message\n")
-                if inpt == "stop":break
-                await generate_csock.send(message=inpt)
                 while True:
+                    time.sleep(1)
                     if subprocess.Popen.poll(server) != None:# Forced restart if the server is closed by ? entity
                         server = PAUSE_SERVER(1,server)
                         server_output_queue = queue.Queue()
@@ -53,7 +53,12 @@ class client:
                             else:
                                 print(line)
                                 line = None
-                        else:break
+                        else:
+                            
+                            break
+                inpt = input("Press enter to send a message\n")
+                if inpt == "stop":break
+                await generate_csock.send(message=inpt)
                 print("\n---------------------\n")
                 #Give var if none => rien
                 

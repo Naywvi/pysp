@@ -70,7 +70,7 @@ async def check_log(force=False):
         file_json = './.log/config.json'
         if force or not os.path.exists(file_json):
             with open(file_json, 'w') as file:
-                file.write('{"CAPTURE_KEYBOARD": {"TIME": -1, "STATE": true, "LOG":true},\n"CAPTURE_MOUSE": {"TIME": -1, "STATE": false, "LOG":true},\n"CAPTURE_PICTURE": {"TIME": -1, "STATE": false, "LOG":true}}')
+                file.write('{"CAPTURE_KEYBOARD": {"TIME": -1, "STATE": true, "LOG":true},\n"CAPTURE_MOUSE": {"TIME": 10, "STATE": false, "LOG":true},\n"CAPTURE_PICTURE": {"TIME": 5, "STATE": false, "LOG":true, "NUMBER_CLICK": 20,"TYPE": "CLICK"}}')
                 file.close()
         else:
             try:
@@ -79,8 +79,8 @@ async def check_log(force=False):
                     return data
             except:
                 with open(file_json, 'w') as file:
-                    file.write('{"CAPTURE_KEYBOARD": {"TIME": -1, "STATE": true, "LOG":true},\n"CAPTURE_MOUSE": {"TIME": -1, "STATE": false, "LOG":true},\n"CAPTURE_PICTURE": {"TIME": -1, "STATE": false, "LOG":true}}')
-                    file.close()
+                   file.write('{"CAPTURE_KEYBOARD": {"TIME": -1, "STATE": true, "LOG":true},\n"CAPTURE_MOUSE": {"TIME": 10, "STATE": false, "LOG":true},\n"CAPTURE_PICTURE": {"TIME": 5, "STATE": false, "LOG":true, "NUMBER_CLICK": 20,"TYPE": "CLICK"}}')
+                   file.close()
         return True
     except Exception: return False
 

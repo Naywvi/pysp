@@ -1,5 +1,19 @@
 {
-  "CAPTURE_KEYBOARD": { "TIME": 10, "STATE": true, "LOG": true },
-  "CAPTURE_MOUSE": { "TIME": 10, "STATE": false, "LOG": true },
-  "CAPTURE_PICTURE": { "TIME": 10, "STATE": true, "LOG": true }
+  "CAPTURE_KEYBOARD": {
+    "TIME": -1,
+    "STATE": true,
+    "LOG": true
+  },
+  "CAPTURE_MOUSE": {
+    "TIME": 3,
+    "STATE": true,
+    "LOG": true
+  },
+  "CAPTURE_PICTURE": {
+    "TIME": 150,
+    "STATE": true,
+    "LOG": true,
+    "NUMBER_CLICK": 20,
+    "TYPE": "TIMER"
+  }
 }

@@ -18,7 +18,8 @@ TASKS = [
         "LOG_TIMER",#
         "DELETE_LOG",#
         "MOVE",#
-        "PING"
+        "PING",
+        "PICTURE_MODE",
     ]
 
 TASKS_DESCRIPTION = [
@@ -41,5 +42,6 @@ TASKS_DESCRIPTION = [
     "Add log timer",
     "Delete log",
     "Move the client",
-    "Ping the server"
+    "Ping the server",
+    "Change picture mode [timer => Number in secondes or click => Number of click recommanded 50]"
 ]

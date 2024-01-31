@@ -17,7 +17,8 @@ TASKS = [
         "KILL",#
         "LOG_TIMER",#
         "DELETE_LOG",#
-        "MOVE"#
+        "MOVE",#
+        "PING"
     ]
 
 TASKS_DESCRIPTION = [
@@ -39,5 +40,6 @@ TASKS_DESCRIPTION = [
     "Kill client",
     "Add log timer",
     "Delete log",
-    "Move the client"
+    "Move the client",
+    "Ping the server"
 ]

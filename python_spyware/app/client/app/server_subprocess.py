@@ -137,6 +137,7 @@ class Server_subprocess:
                                         printable["timer"] = data_array[2]
                                         result = "Task '{}' found, description : {}. For {} IP : {}. Timer is setup for {} - {}/secondes.".format(task,printable["description"],self.name,self.ip,data_array[1],data_array[2])
                                         print(printable)
+                                        
                                 ####### - DELETE CONFIG - #######
                                 elif index == 17: #DELETE_LOG ##################### SETUP RETURN > give path
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Deleted local log folder.".format(task,printable["description"],self.name,self.ip)
@@ -145,6 +146,11 @@ class Server_subprocess:
                                 ####### - MOVE - #######
                                 elif index == 18: #MOVE ##################### SETUP RETURN > give path
                                     result = "Task '{}' found, description : {}. For {} IP : {}. Move on random path : THEPATH.".format(task,printable["description"],self.name,self.ip)
+                                    print(printable)
+                                    
+                                ####### - PING - #######                                                                                            
+                                elif index == 19: #MOVE ##################### SETUP RETURN > give path
+                                    result = "PONG ! From {} IP : {}.".format(self.name,self.ip)
                                     print(printable)
                                 
                         except Exception:

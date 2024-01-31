@@ -1,8 +1,8 @@
 from app.module_crypto import encrypt_message
 from app.functions import *
 import socket
-class Client:
-    """Client class for client app (send data)"""
+class Client_socket:
+    """Client_socket class for client_socket app (send data)"""
     
     async def ainit(self,config = None):
         """You need to init .env file before using this class"""

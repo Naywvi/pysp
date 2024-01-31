@@ -3,3 +3,8 @@ pynput
 wheel
 requests
 psutil --->> Si process is down => reset
+
+image
+pil 
+screeninfo
+pyautogui

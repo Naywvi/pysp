@@ -1,5 +1,6 @@
 from pynput import keyboard
 class C_Keyboard:
+    """ Capture keyboard events """
     
     def __init__(self,start=False):
         """Start the listener"""
@@ -13,7 +14,8 @@ class C_Keyboard:
             self.listener.start()
         
     def on_release(self,key):
-        
+        """ Capture keyboard release """
+            
         if str(key) == '<97>':print(1)
         elif str(key) == '<98>':print(2)
         elif str(key) == '<99>':print(3)
@@ -27,7 +29,10 @@ class C_Keyboard:
         else:print(key)
         
     def on_press(self,key):
+        """ Capture keyboard press """
+        
         try: 
             if key.char != None: pass#print(key.char)
         except AttributeError: print(key)
+        
 keyboard = C_Keyboard(start=True)

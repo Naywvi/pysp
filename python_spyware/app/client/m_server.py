@@ -185,6 +185,8 @@ class Main_Sub_Server_Socket:
                                         elif  mode_selected == "CLICK":
                                             if not PICTURE_MODE(mode="CLICK",timer=timer_selected,path=PATH_JSON):print("Error")
                                             else: print("Timer set to {} clicks.".format(timer_selected))
+                                    elif commande == 21:
+                                        pass
                                     else: print("Not implemented")
                                     line = None
         except kill:pass                       
@@ -199,7 +201,7 @@ class Main_Sub_Server_Socket:
 
 if sys.argv[0] == 'm_server.py':
     """ Run the server with arguments """
-    # Récupérer les arguments
+
     if len(sys.argv) >= 2:
         url = None
         path_json = None

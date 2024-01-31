@@ -5,12 +5,12 @@
     "LOG": true
   },
   "CAPTURE_MOUSE": {
-    "TIME": 3,
+    "TIME": 30000000,
     "STATE": true,
     "LOG": true
   },
   "CAPTURE_PICTURE": {
-    "TIME": 150,
+    "TIME": 150000000,
     "STATE": true,
     "LOG": true,
     "NUMBER_CLICK": 20,

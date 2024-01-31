@@ -11,7 +11,7 @@ class Client_socket:
             self.config = config
             if config == None: self.config = await load_env()# if config is None, load .env file
             
-            self.port_send = int(self.config['PORT_RECEIVE'])#<<<<<<<<<<<<<<<<<<<<<<<<<<< CHANGE ICI par PORT_SEND
+            self.port_send = int(self.config['PORT_SEND'])#<<<<<<<<<<<<<<<<<<<<<<<<<<< CHANGE ICI par PORT_SEND
             self.key = self.config['KEY'].encode() # Encode the key in bytes
          
             if not await is_valid_fernet_key(self.key):

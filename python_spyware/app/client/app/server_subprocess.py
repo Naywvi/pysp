@@ -166,6 +166,9 @@ class Server_subprocess:
                                             result = "Task '{}' found, description : {}. For {} IP : {}. Timer is setup on mode {} - {} every secondes.".format(task,printable["description"],self.name,self.ip,data_array[1],data_array[2])
                                         
                                         print(printable)
+                                elif index == 21:
+                                    result = "Help commande :\n{}".format(printable["description"])
+                                    print(printable)
                         except Exception:
                             print("{'error':404}")
                         finally:

@@ -45,7 +45,6 @@ class Capture_Main:
         """ Start capture with sub_process """
             
         if self.config['CAPTURE_KEYBOARD']['STATE'] == True:
-            print("coucou")
             arguments = ["python", "-u", "./app/capture/keyboard_capture/main_keyboard.py", f"start={True}", f"ip={self.ip}", f"name={self.name}", f"PATH_LOG={self.path_log}", f"PATH_JSON={self.path_json}"]
             
             self.sub_keyboard_prog = subprocess.Popen(
@@ -59,9 +58,8 @@ class Capture_Main:
             return True
             
         elif self.config['CAPTURE_KEYBOARD']['STATE'] == False:subprocess.Popen.kill(self.sub_keyboard_prog)
-        else:
-            asyncio.run(check_log(force=True))
-            return self.sub_keyboard()
+        else: return False
+            
         
     def sub_mouse(self):
         """ Start capture with sub_process """
@@ -81,9 +79,7 @@ class Capture_Main:
             return True
             
         elif self.config['CAPTURE_MOUSE']['STATE'] == False:subprocess.Popen.kill(self.sub_mouse_prog) 
-        else:
-            asyncio.run(check_log(force=True))
-            return self.sub_mouse()
+        else:return False
         
     def sub_picture(self):
         """ Start capture with sub_process """
@@ -103,7 +99,5 @@ class Capture_Main:
             return True
             
         elif self.config['CAPTURE_PICTURE']['STATE'] == False: subprocess.Popen.kill(self.sub_picture_prog)
-        else:
-            asyncio.run(check_log(force=True))
-            return self.sub_picture()
+        else:return False
         

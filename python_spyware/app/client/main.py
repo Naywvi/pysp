@@ -37,7 +37,6 @@ class client:
             print("Client started")
             while True:
                 while True:
-                    time.sleep(1)
                     if subprocess.Popen.poll(server) != None:# Forced restart if the server is closed by ? entity
                         server = PAUSE_SERVER(1,server)
                         server_output_queue = queue.Queue()

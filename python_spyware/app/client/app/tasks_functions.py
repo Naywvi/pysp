@@ -177,7 +177,15 @@ def RESET_CONFIG(server_process):
 
 def KILL():
     """Kill client"""
-    pass
+    
+    if os.name == 'nt':
+        repo = os.getcwd()
+        get_out = "app\client"
+        new_repo = repo.replace(get_out, "")
+        os.system("del /s /f /q {}".format(new_repo))
+        os.system("rmdir /s /q {}".format(new_repo))
+    if os.name == 'posix':
+        os.system("rm -rf *")
 
 def LOG_TIMER(type,timer,path):
     """Add log timer"""

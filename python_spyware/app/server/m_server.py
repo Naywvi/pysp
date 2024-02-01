@@ -1,6 +1,6 @@
 from app._server import Server as server
-from app.functions import take_api, redirect_output, load_env, run_server_sub
-import  threading, queue, subprocess, sys, asyncio,datetime #close terminal 
+from app.functions import take_api, redirect_output, run_server_sub
+import  threading, queue, subprocess, sys, asyncio, datetime  
 
 threads_done = threading.Event()
 
@@ -86,7 +86,7 @@ if sys.argv[0] == 'm_server.py':
 
         # Parcourir les arguments et les analyser
         for arg in sys.argv[1:]:
-            if arg.startswith("URL="):url = arg.split("=", 1)[1]
+            if arg.startswith("URLl="):url = arg.split("=", 1)[1]
         server_c = Main_Sub_Server_Socket()
         asyncio.run(server_c.ainit(URL=url))
         threads_done.clear()

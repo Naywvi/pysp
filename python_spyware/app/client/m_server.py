@@ -192,15 +192,14 @@ class Main_Sub_Server_Socket:
                                     line = None
         except kill:pass                       
         except ResetConfigException:
-            # RESET_CONFIG(server_process=server_process)
-            # return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
-            return await self.ainit(PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
+            RESET_CONFIG(server_process=server_process)
+            return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
         except Exception as err: print(err)
         finally: 
-            # RESET_CONFIG(server_process=server_process)
+            RESET_CONFIG(server_process=server_process)
             print("[x] - Server close") # Signal the end of the thread
-            # return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
-            return await self.ainit(PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
+            return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
+            
 
 if sys.argv[0] == 'm_server.py':
     """ Run the server with arguments """

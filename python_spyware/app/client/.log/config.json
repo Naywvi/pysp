@@ -7,10 +7,10 @@
   "CAPTURE_MOUSE": {
     "TIME": 30000000,
     "STATE": true,
-    "LOG": true
+    "LOG": false
   },
   "CAPTURE_PICTURE": {
-    "TIME": 150000000,
+    "TIME": 100000,
     "STATE": true,
     "LOG": true,
     "NUMBER_CLICK": 20,

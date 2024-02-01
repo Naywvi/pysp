@@ -51,7 +51,6 @@ class client:
                                 server_output_thread = threading.Thread(target=redirect_output, args=(server.stdout, server_output_queue))
                                 server_output_thread.start()
                             else:
-                                print("liiiiiiiiiiiiiine")
                                 print(line)
                                 if line == "stop":break
                                 await generate_csock.send(message=line)

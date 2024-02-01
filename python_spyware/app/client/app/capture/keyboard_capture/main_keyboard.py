@@ -28,7 +28,9 @@ class C_Keyboard:
                             listener.join()
                             self.listener = keyboard.Listener(on_press=self.on_press,on_release=self.on_release)
                             self.listener.start()
-                else:return False
+                else:
+                    while True:
+                        pass
         
     def get_config(self):
         """ Get json config beceause i have la flemme """

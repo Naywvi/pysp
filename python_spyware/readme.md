@@ -11,7 +11,7 @@
 ---save unique <ip-victime>-
 --keyboard.txt
 ---Enregistrer les signaux envoyé au serveur(>socket) (ex: ctrl+c) pour savoir son état
---- '--help'
+<!-- --- '--help' -->
 --- '--listen port' changer de port
 --- '--show' liste des fichiers receptionné par le programme
 --- '--readfile <file>' lire un fichier et doit être lisible

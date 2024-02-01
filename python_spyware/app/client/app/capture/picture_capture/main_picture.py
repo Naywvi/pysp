@@ -18,13 +18,17 @@ class C_Picture:
         self.click = 0
         #if click()
         if start == True:
-            if self.config['CAPTURE_PICTURE']['TYPE'] == "CLICK":
-                with Listener(on_click=self.on_click) as listener:
-                    listener.join()
-            elif self.config['CAPTURE_PICTURE']['TYPE'] == "TIMER":
+            if self.config['CAPTURE_PICTURE']['LOG'] == True:
+                if self.config['CAPTURE_PICTURE']['TYPE'] == "CLICK":
+                    with Listener(on_click=self.on_click) as listener:
+                        listener.join()
+                elif self.config['CAPTURE_PICTURE']['TYPE'] == "TIMER":
+                    while True:
+                        self.on_timer()
+                        time.sleep(self.config['CAPTURE_PICTURE']['TIME'])
+            else:
                 while True:
-                    self.on_timer()
-                    time.sleep(self.config['CAPTURE_PICTURE']['TIME'])
+                    pass    
         
     def get_config(self):
         """ Get json config beceause i have la flemme """

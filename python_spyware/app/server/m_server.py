@@ -1,6 +1,6 @@
 from app._server import Server as server
 from app.functions import take_api, redirect_output, load_env, run_server_sub
-import  threading, queue, subprocess, sys, asyncio #close terminal 
+import  threading, queue, subprocess, sys, asyncio,datetime #close terminal 
 
 threads_done = threading.Event()
 
@@ -40,7 +40,20 @@ class Main_Sub_Server_Socket:
             except: return await self.ainit(URL=URL) #if error, restart the main function
             ## /!\ Start subprocess server /!\ ###
             
+            #Timer 10 min
+            initial_time = datetime.datetime.now()
+            max = 600
             while True:
+                
+                #couldown
+                now_time = datetime.datetime.now()
+                flow_time = now_time - initial_time
+                if flow_time.total_seconds() >= max:
+                    # Une fois que 600 secondes se sont écoulées, afficher un message
+                    print("600 secondes.")
+                    subprocess.Popen.kill(server_process) #kill the server
+                    return
+                
                 if subprocess.Popen.poll(server_process) != None:# Forced restart if the server is closed by ? entity
                     server_output_queue = queue.Queue()
                     server_output_thread = threading.Thread(target=redirect_output, args=(server_process.stdout, server_output_queue))
@@ -55,12 +68,12 @@ class Main_Sub_Server_Socket:
                             server_output_thread = threading.Thread(target=redirect_output, args=(server_process.stdout, server_output_queue))
                             server_output_thread.start()
                         else:
-                            
+                            initial_time = datetime.datetime.now()#reset timer
                             # Error gestion
                             if line != None:
                                 print(line)
                                 line = None
-                                
+                        
         
         finally: 
             print("[x] - Server close") # Signal the end of the thread

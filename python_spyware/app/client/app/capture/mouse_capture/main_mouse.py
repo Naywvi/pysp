@@ -29,8 +29,10 @@ class C_Mouse:
                                 ) as listener:
                             
                             listener.join()
-                        time.sleep(self.config['CAPTURE_MOUSE']['TIME'])    
-                else:return False
+                            time.sleep(self.config['CAPTURE_MOUSE']['TIME'])    
+                else:
+                    while True:
+                        pass
             # ...or, in a non-blocking fashion:
             # listener = mouse.Listener(
             #     on_move=self.on_move,

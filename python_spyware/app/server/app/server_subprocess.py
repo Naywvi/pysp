@@ -34,7 +34,7 @@ class Server_subprocess:
                         encrypted_data = conn.recv(1024)
                         if not encrypted_data:
                             break
-                        data = await decrypt_message(encrypted_data, self.key)
+                        data = decrypt_message(encrypted_data, self.key)
                         #Debug data sender
                         print(data)
                         conn.sendall(data.encode())

